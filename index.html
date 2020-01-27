@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="game">
+        <h1>Gomoku</h1>
+        <div class="grid">
+            <div class="row" v-for="(_, x) in width">
+                <div class="col" v-for="(_, y) in height" @click="place(x, y)">
+                    <div v-bind:class="['unit', getClassOf(grid[x][y])]"></div>
+                </div>
+            </div>
+        </div>
+        <p>{{game.status}}</p>
+    </div>
+    <script src="gomoku.js"></script>
+    <script src="ai.js"></script>
+    <script>
+        const game = new Gomoku()
+        game.place(9, 9) // AI first
+
+        new Vue({
+            el: '#game',
+            data: {
+                game,
+                grid: game.grid,
+                width: game.width,
+                height: game.height,
+            },
+            methods: {
+                place(x, y) {
+                    this.game.place(x, y)
+                    AI(this.game)
+                },
+
+                getClassOf(cell) {
+                    if (cell.color === 'b') return 'black'
+                    if (cell.color === 'w') return 'white'
+                },
+            },
+        })
+    </script>
+</body>
+</html>
