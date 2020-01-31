@@ -8,9 +8,9 @@ body {
     border: 2px solid black;
     width: calc(21*18px);
     height: calc(21*18px);
-    overflow: hidden;
     cursor: pointer;
 }
+
 .row {
     display: flex;
     width: calc(21*19px);
@@ -25,25 +25,19 @@ body {
     font-size: 0.1rem;
 }
 
-.col::after, .col::before {
+.col::before {
     content: '';
-    position: absolute;
-    background-color: black;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 1px solid black;
+    border-width: 0px 1px 1px 0px;
+    transform: translate(10px, 10px);
 }
 
-.col::after {
-    top: 10px;
-    left: 0;
-    width: 21px;
-    height: 1px;
-    
-}
-.col::before {
-    right: 10px;
-    bottom: 0px;
-    width: 1px;
-    height: 21px;
+.row:last-child > .col::before,
+.col:last-child::before {
+    display: none;
 }
 
 .unit {
