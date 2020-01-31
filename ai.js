@@ -7,10 +7,10 @@ function AI(game) {
 
     function getScoreOf(x, y, turn) {
         grid[x][y].color = turn
-        const a = getLine(x, y, 1, 0) + getLine(x, y, -1, 0) + 1;
-        const b = getLine(x, y, 0, 1) + getLine(x, y, 0, -1) + 1;
-        const c = getLine(x, y, 1, 1) + getLine(x, y, -1, -1) + 1;
-        const d = getLine(x, y, 1, -1) + getLine(x, y, -1, 1) + 1;
+        const a = getLine(x, y, 1, 0) + getLine(x, y, -1, 0);
+        const b = getLine(x, y, 0, 1) + getLine(x, y, 0, -1);
+        const c = getLine(x, y, 1, 1) + getLine(x, y, -1, -1);
+        const d = getLine(x, y, 1, -1) + getLine(x, y, -1, 1);
         grid[x][y].color = ''
 
         return [a, b, c, d].reduce((sum, length) => {
@@ -21,7 +21,11 @@ function AI(game) {
     function getLine(x, y, vx, vy) {
         let i
         for (i = 1; i < 5; i++) {
-            if (grid[x][y].color !== grid[x + vx * i][y + vy * i].color) break
+            let target = grid[x + vx * i][y + vy * i].color
+            if (grid[x][y].color !== target) {
+                if (target !== '') i -= 0.5
+                break
+            }
         }
         return i - 1;
     }
