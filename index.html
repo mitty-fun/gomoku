@@ -36,8 +36,9 @@
             },
             methods: {
                 place(x, y) {
-                    this.game.place(x, y)
-                    AI(this.game)
+                    if (this.game.place(x, y)) {
+                        AI(this.game)
+                    }
                 },
 
                 getClassOf(cell) {

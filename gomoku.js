@@ -16,10 +16,11 @@ class Gomoku {
     }
 
     place(x, y) {
-        if (this.status !== 'playing') return
+        if (this.grid[x][y].color !== '' || this.status !== 'playing') return
         this.grid[x][y].color = this.turn
         this.turn = this.turn === 'b' ? 'w' : 'b'
         this.judge()
+        return true
     }
 
     judge() {
